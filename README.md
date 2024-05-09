@@ -14,7 +14,7 @@ Java Spring Boot api for managing discount codes.
 {
 	"name": "product_name",
 	"description": "product_description",
-	"price": {product_price},
+	"price": `product_price`,
 	"currency": "price_currency"
 }
 ```
@@ -24,10 +24,10 @@ Java Spring Boot api for managing discount codes.
 - Returns a list off all products in JSON format:
  ```json
 {
-	"id": {product_id},
+	"id": `product_id`,
 	"name": "product_name",
 	"description": "product_description",
-	"price": {product_price},
+	"price": `product_price`,
 	"currency": "price_currency"
 }
 ```
@@ -37,10 +37,10 @@ Java Spring Boot api for managing discount codes.
 - In request body provide JSON of the following format:
  ```json
 {
-	"id": {product_id},
+	"id": `product_id`,
 	"name": "product_name",
 	"description": "product_description",
-	"price": {product_price},
+	"price": `product_price`,
 	"currency": "price_currency"
 }
 ```
@@ -53,9 +53,9 @@ Java Spring Boot api for managing discount codes.
 {
 	"name": "code_name",
 	"expDate": "expiration_date",
-	"discountAmmount": {discount_ammount},
-	"currency": {code_currency},
-	"maxUsages": {max_usages}
+	"discountAmount": `discount_amount`,
+	"currency": "code_currency",
+	"maxUsages": `max_usages`
 }
 ```
 
@@ -64,12 +64,11 @@ Java Spring Boot api for managing discount codes.
 - Returns a list off all codes in JSON format:
  ```json
 {
-	"id": {code_id},
 	"name": "code_name",
-	"discountAmmount": {discount_ammount},
+	"discountAmount": `discount_amount`,
 	"currency": "code_currency",
-	"maxUsages": {max_usages},
-	"currentUsages": {current_usages}
+	"maxUsages": `max_usages`,
+	"currentUsages": `current_usages`
 }
 ```
 
@@ -78,12 +77,11 @@ Java Spring Boot api for managing discount codes.
 - Returns code details as JSON based on code name.
  ```json
 {
-	"id": {code_id},
 	"name": "code_name",
-	"discountAmmount": {discount_ammount},
+	"discountAmount": `discount_amount`,
 	"currency": "code_currency",
-	"maxUsages": {max_usages},
-	"currentUsages": {current_usages}
+	"maxUsages": `max_usages`,
+	"currentUsages": `current_usages`
 }
 ```
 
@@ -94,7 +92,7 @@ Java Spring Boot api for managing discount codes.
  ```json
 {
 	"codeName": "code_name",
-	"productName": "product_name"
+	"productId": `product_id`
 }
 ```
 
@@ -105,7 +103,7 @@ Java Spring Boot api for managing discount codes.
  ```json
 {
 	"codeName": "code_name",
-	"productName": "product_name"
+	"productId": `product_id`
 }
 ```
 

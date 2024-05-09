@@ -1,15 +1,16 @@
 package com.mikolaj.promocodes.application.services;
 
-import com.mikolaj.promocodes.application.dtos.CreateProductDto;
-import com.mikolaj.promocodes.application.dtos.UpdateProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.CreateProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.ReturnProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.UpdateProductDto;
 import com.mikolaj.promocodes.domain.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<Product> findAll();
+    List<ReturnProductDto> findAll();
 
-    Product save(CreateProductDto createProductDto);
+    ReturnProductDto save(CreateProductDto createProductDto);
 
-    Product update(UpdateProductDto updateProductDto);
+    ReturnProductDto update(UpdateProductDto updateProductDto);
 }

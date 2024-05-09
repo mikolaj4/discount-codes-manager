@@ -1,4 +1,4 @@
-package com.mikolaj.promocodes.application.dtos;
+package com.mikolaj.promocodes.application.dtos.product_dtos;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

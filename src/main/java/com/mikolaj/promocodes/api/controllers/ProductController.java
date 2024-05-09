@@ -1,7 +1,8 @@
 package com.mikolaj.promocodes.api.controllers;
 
-import com.mikolaj.promocodes.application.dtos.CreateProductDto;
-import com.mikolaj.promocodes.application.dtos.UpdateProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.CreateProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.ReturnProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.UpdateProductDto;
 import com.mikolaj.promocodes.domain.entity.Product;
 import com.mikolaj.promocodes.application.services.ProductService;
 import jakarta.validation.Valid;
@@ -23,20 +24,21 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> findAll(){
-        return productService.findAll();
+    public ResponseEntity<List<ReturnProductDto>> findAll(){
+        List<ReturnProductDto> allProductsDtos = productService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(allProductsDtos);
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> addProduct(@Valid @RequestBody CreateProductDto createProductDto){
-        Product dbProduct = productService.save(createProductDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dbProduct);
+    public ResponseEntity<ReturnProductDto> addProduct(@Valid @RequestBody CreateProductDto createProductDto){
+        ReturnProductDto dbProductDto = productService.save(createProductDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dbProductDto);
     }
 
     @PutMapping("/products")
-    public ResponseEntity<Product> updateProduct(@Valid @RequestBody UpdateProductDto updateProductDto){
-        Product dbProduct = productService.update(updateProductDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dbProduct);
+    public ResponseEntity<ReturnProductDto> updateProduct(@Valid @RequestBody UpdateProductDto updateProductDto){
+        ReturnProductDto dbProductDto = productService.update(updateProductDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dbProductDto);
     }
 
 }
