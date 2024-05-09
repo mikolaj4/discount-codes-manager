@@ -8,8 +8,7 @@ import lombok.Data;
 public class CreatePromoCodeDto {
     @Valid
 
-    @NotEmpty(message = "code name is mandatory")
-    @Pattern(regexp = "^[a-zA-Z0-9]{3,24}$")
+    @Pattern(regexp = "^[a-zA-Z0-9]{3,24}$", message = "must me alphanumeric code - size: 3-24 characters")
     private String name;
 
     @NotNull(message = "discount amount is mandatory")
@@ -18,7 +17,8 @@ public class CreatePromoCodeDto {
     @NotEmpty(message = "code currency is mandatory")
     private String currency;
 
-    @Min(1)
+    @Min(value = 1, message = "must be >= 1")
+    @Max(value = 9999999, message = "must be <= 9999999")
     @NotNull(message = "max usages is mandatory")
     private Integer maxUsages;
 

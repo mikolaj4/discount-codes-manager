@@ -1,6 +1,7 @@
 package com.mikolaj.promocodes.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data

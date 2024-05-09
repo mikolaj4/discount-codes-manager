@@ -1,6 +1,8 @@
 package com.mikolaj.promocodes.api.handlers;
 
 import com.mikolaj.promocodes.api.exceptions.ProductNotFoundException;
+import com.mikolaj.promocodes.api.exceptions.PromoCodeAlreadyExistsException;
+import com.mikolaj.promocodes.api.exceptions.PromoCodeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -35,5 +37,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Json format not correct.");
     }
 
+    @ExceptionHandler(PromoCodeAlreadyExistsException.class)
+    public ResponseEntity<String> handlePromoCodeAlreadyExistsException(PromoCodeAlreadyExistsException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 
+    @ExceptionHandler(PromoCodeNotFoundException.class)
+    public ResponseEntity<String> handlePromoCodeNotFoundException(PromoCodeNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }
