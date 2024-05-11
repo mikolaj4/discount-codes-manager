@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,14 +45,23 @@ public class PromoCodeServiceImpl implements PromoCodeService{
     }
 
     @Override
+    public PromoCode findEntityByName(String codeName){
+        Optional<PromoCode> result = promoCodeRepository.findById(codeName);
+        return result.orElseThrow(() -> new PromoCodeNotFoundException("Promo code not found with name: " + codeName));
+    }
+    @Override
     public ReturnPromoCodeDto save(CreatePromoCodeDto createPromoCodeDto) {
         if (promoCodeRepository.existsById(createPromoCodeDto.getName())){
             throw new PromoCodeAlreadyExistsException("Promo code with the same name already exists");
         }
 
         PromoCode promoCode = modelMapper.map(createPromoCodeDto, PromoCode.class);
+        LocalDate expDate = LocalDate.parse(createPromoCodeDto.getExpDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        promoCode.setExpDate(expDate);
         promoCode.setCurrentUsages(0);
+
         PromoCode savedPromoCode = promoCodeRepository.save(promoCode);
+
         return modelMapper.map(savedPromoCode, ReturnPromoCodeDto.class);
     }
 }

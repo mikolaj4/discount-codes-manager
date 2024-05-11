@@ -86,7 +86,7 @@ Java Spring Boot api for managing discount codes.
 ```
 
 
-### POST "/api/calculatediscount"
+### POST "/api/discount-price"
 - Returns calculated discount based on given promo code name and product name.
 - In request body provide JSON of the following format:
  ```json

@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Data
 @Entity
 @Table(name="promo_codes")
@@ -28,4 +31,6 @@ public class PromoCode {
     @Column(name="current_usages")
     private Integer currentUsages;
 
+    @Column(name="exp_date")
+    private LocalDate expDate;
 }

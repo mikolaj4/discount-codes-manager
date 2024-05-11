@@ -10,6 +10,8 @@ import java.util.List;
 public interface ProductService {
     List<ReturnProductDto> findAll();
 
+    Product findById(Integer productId);
+
     ReturnProductDto save(CreateProductDto createProductDto);
 
     ReturnProductDto update(UpdateProductDto updateProductDto);

@@ -1,8 +1,11 @@
 package com.mikolaj.promocodes.application.dtos.promo_code_dtos;
 
+import com.mikolaj.promocodes.api.validators.ValidLocalDate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class CreatePromoCodeDto {
@@ -22,6 +25,7 @@ public class CreatePromoCodeDto {
     @NotNull(message = "max usages is mandatory")
     private Integer maxUsages;
 
-
+    @ValidLocalDate
+    private String expDate;
 
 }

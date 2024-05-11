@@ -6,6 +6,7 @@ import com.mikolaj.promocodes.application.dtos.product_dtos.UpdateProductDto;
 import com.mikolaj.promocodes.domain.entity.Product;
 import com.mikolaj.promocodes.api.exceptions.ProductNotFoundException;
 import com.mikolaj.promocodes.domain.repository.ProductRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,17 @@ public class ProductServiceImpl implements ProductService {
         return products.stream()
                 .map(product -> modelMapper.map(product, ReturnProductDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Product findById(Integer productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+
+        if (optionalProduct.isPresent()){
+            return optionalProduct.get();
+        } else {
+            throw new ProductNotFoundException("Product with ID " + productId + " not found");
+        }
     }
 
     @Override
