@@ -108,8 +108,8 @@ Java Spring Boot api for managing discount codes.
 ```
 
 
-### GET "/api/report"
-- Returns sales report by currency.
+### GET "/api/sales-report"
+- Returns html sales report by currency.
 
 
 

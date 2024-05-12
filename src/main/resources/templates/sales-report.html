@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Report</title>
+</head>
+<body>
+    <h1>Sales Report</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Total Amount</th>
+                <th>Total Discount</th>
+                <th>No of Purchases</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="row : ${salesReportData}">
+                <td th:text="${row.currency}"></td>
+                <td th:text="${row.totalAmount}"></td>
+                <td th:text="${row.totalDiscount}"></td>
+                <td th:text="${row.purchaseCount}"></td>
+            </tr>
+        </tbody>
+
+
+    </table>
+
+</body>
+</html>
