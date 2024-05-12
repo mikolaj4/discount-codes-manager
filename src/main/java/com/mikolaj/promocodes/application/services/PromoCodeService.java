@@ -12,4 +12,5 @@ public interface PromoCodeService {
     ReturnPromoCodeDto findByName(String codeName);
     PromoCode findEntityByName(String codeName);
     ReturnPromoCodeDto save(CreatePromoCodeDto createPromoCodeDto);
+    void findAndUpdateUsages(String codeName);
 }

@@ -1,5 +1,6 @@
 package com.mikolaj.promocodes.application.services;
 
+import com.mikolaj.promocodes.application.dtos.discount_details_dtos.DiscountDetailsDto;
 import com.mikolaj.promocodes.application.dtos.discount_dtos.DiscountPriceDto;
 import com.mikolaj.promocodes.application.dtos.discount_dtos.ReturnDiscountPriceDto;
 import com.mikolaj.promocodes.application.dtos.promo_code_dtos.ReturnPromoCodeDto;
@@ -16,80 +17,24 @@ import java.time.LocalDate;
 
 @Service
 public class DiscountPriceServiceImpl implements DiscountPriceService{
-
-    private PromoCodeService promoCodeService;
-    private ProductService productService;
-    private ModelMapper modelMapper;
+    private PriceCalculationService priceCalculationService;
 
     @Autowired
-    public DiscountPriceServiceImpl(PromoCodeService promoCodeService, ProductService productService, ModelMapper modelMapper) {
-        this.promoCodeService = promoCodeService;
-        this.productService = productService;
-        this.modelMapper = modelMapper;
+    public DiscountPriceServiceImpl(PriceCalculationService priceCalculationService) {
+        this.priceCalculationService = priceCalculationService;
     }
 
     @Override
     public ReturnDiscountPriceDto calculateDiscountPrice(DiscountPriceDto discountPriceDto) {
-        PromoCode promoCode = promoCodeService.findEntityByName(discountPriceDto.getCodeName());
-        Product product = productService.findById(discountPriceDto.getProductId());
+       DiscountDetailsDto discountDetailsDto = priceCalculationService.calculateDiscountPrice(discountPriceDto.getProductId(), discountPriceDto.getCodeName());
 
-
-        double productPrice = product.getPrice();
-
-        LocalDate currentDate = LocalDate.now();
-        if (promoCode.getExpDate().isBefore(currentDate)){
-            return createReturnDiscountPriceDto(
-                    productPrice,
-                    product.getCurrency(),
-                    "Promo code expired.",
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-
-        if (!product.getCurrency().equals(promoCode.getCurrency())) {
-            return createReturnDiscountPriceDto(
-                    productPrice,
-                    null,
-                    "Currencies do not match." +
-                    " Product price currency: " + product.getCurrency() +
-                    " Promo code currency: " + promoCode.getCurrency(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-
-        if (promoCode.getCurrentUsages() >= promoCode.getMaxUsages()){
-            return createReturnDiscountPriceDto(
-                    productPrice,
-                    product.getCurrency(),
-                    "Maximum number of code usages reached.",
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-
-        double updatedPrice = productPrice - promoCode.getDiscountAmount();
-        if (updatedPrice < 0){
-            return createReturnDiscountPriceDto(
-                    0,
-                    product.getCurrency(),
-                    "Price after discount was negative.",
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-
-        return createReturnDiscountPriceDto(
-                updatedPrice,
-                product.getCurrency(),
-                "Discount applied successfully.",
-                HttpStatus.OK
-        );
+       return new ReturnDiscountPriceDto(
+               discountDetailsDto.getUpdatedPrice(),
+               discountDetailsDto.getCurrency(),
+               discountDetailsDto.getMessage(),
+               discountDetailsDto.getHttpStatus()
+       );
     }
 
-    private ReturnDiscountPriceDto createReturnDiscountPriceDto(double price, String currency, String message, HttpStatus status) {
-        ReturnDiscountPriceDto returnDiscountPriceDto = new ReturnDiscountPriceDto();
-        returnDiscountPriceDto.setUpdatedPrice(price);
-        returnDiscountPriceDto.setCurrency(currency);
-        returnDiscountPriceDto.setMessage(message);
-        returnDiscountPriceDto.setStatus(status);
-        return returnDiscountPriceDto;
-    }
+
 }

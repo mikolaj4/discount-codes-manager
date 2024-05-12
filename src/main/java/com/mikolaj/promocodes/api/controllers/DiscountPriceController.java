@@ -5,7 +5,6 @@ import com.mikolaj.promocodes.application.dtos.discount_dtos.ReturnDiscountPrice
 import com.mikolaj.promocodes.application.services.DiscountPriceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +26,6 @@ public class DiscountPriceController {
     ResponseEntity<ReturnDiscountPriceDto> getDiscountPrice(@Valid @RequestBody DiscountPriceDto discountPriceDto){
         ReturnDiscountPriceDto returnDiscountPriceDto = discountPriceService.calculateDiscountPrice(discountPriceDto);
 
-        return ResponseEntity.status(returnDiscountPriceDto.getStatus()).body(returnDiscountPriceDto);
+        return ResponseEntity.status(returnDiscountPriceDto.getHttpStatus()).body(returnDiscountPriceDto);
     }
 }

@@ -64,4 +64,13 @@ public class PromoCodeServiceImpl implements PromoCodeService{
 
         return modelMapper.map(savedPromoCode, ReturnPromoCodeDto.class);
     }
+
+    @Override
+    public void findAndUpdateUsages(String codeName) {
+        PromoCode promoCode = promoCodeRepository.findById(codeName)
+                .orElseThrow(() -> new PromoCodeNotFoundException("Promo code not found with name: " + codeName));
+
+        promoCode.setCurrentUsages(promoCode.getCurrentUsages() + 1);
+        promoCodeRepository.save(promoCode);
+    }
 }
