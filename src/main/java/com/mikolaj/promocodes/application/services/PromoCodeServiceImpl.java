@@ -3,8 +3,7 @@ package com.mikolaj.promocodes.application.services;
 import com.mikolaj.promocodes.api.exceptions.PromoCodeAlreadyExistsException;
 import com.mikolaj.promocodes.api.exceptions.PromoCodeNotFoundException;
 import com.mikolaj.promocodes.application.dtos.promo_code_dtos.CreatePromoCodeDto;
-import com.mikolaj.promocodes.application.dtos.promo_code_dtos.ReturnPromoCodeDto;
-import com.mikolaj.promocodes.domain.entity.Product;
+import com.mikolaj.promocodes.application.dtos.promo_code_dtos.ResponsePromoCodeDto;
 import com.mikolaj.promocodes.domain.entity.PromoCode;
 import com.mikolaj.promocodes.domain.repository.PromoCodeRepository;
 import org.modelmapper.ModelMapper;
@@ -30,18 +29,18 @@ public class PromoCodeServiceImpl implements PromoCodeService{
     }
 
     @Override
-    public List<ReturnPromoCodeDto> findAll() {
+    public List<ResponsePromoCodeDto> findAll() {
         List<PromoCode> promoCodes = promoCodeRepository.findAll();
         return promoCodes.stream()
-                .map(promoCode -> modelMapper.map(promoCode, ReturnPromoCodeDto.class))
+                .map(promoCode -> modelMapper.map(promoCode, ResponsePromoCodeDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ReturnPromoCodeDto findByName(String codeName) {
+    public ResponsePromoCodeDto findByName(String codeName) {
         Optional<PromoCode> result = promoCodeRepository.findById(codeName);
         PromoCode thePromoCode = result.orElseThrow(() -> new PromoCodeNotFoundException("Promo code not found with name: " + codeName));
-        return modelMapper.map(thePromoCode, ReturnPromoCodeDto.class);
+        return modelMapper.map(thePromoCode, ResponsePromoCodeDto.class);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class PromoCodeServiceImpl implements PromoCodeService{
         return result.orElseThrow(() -> new PromoCodeNotFoundException("Promo code not found with name: " + codeName));
     }
     @Override
-    public ReturnPromoCodeDto save(CreatePromoCodeDto createPromoCodeDto) {
+    public ResponsePromoCodeDto save(CreatePromoCodeDto createPromoCodeDto) {
         if (promoCodeRepository.existsById(createPromoCodeDto.getName())){
             throw new PromoCodeAlreadyExistsException("Promo code with the same name already exists");
         }
@@ -62,7 +61,7 @@ public class PromoCodeServiceImpl implements PromoCodeService{
 
         PromoCode savedPromoCode = promoCodeRepository.save(promoCode);
 
-        return modelMapper.map(savedPromoCode, ReturnPromoCodeDto.class);
+        return modelMapper.map(savedPromoCode, ResponsePromoCodeDto.class);
     }
 
     @Override

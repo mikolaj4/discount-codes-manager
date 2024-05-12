@@ -1,7 +1,6 @@
 package com.mikolaj.promocodes.application.services;
 
 import com.mikolaj.promocodes.application.dtos.discount_details_dtos.DiscountDetailsDto;
-import com.mikolaj.promocodes.application.dtos.discount_dtos.ReturnDiscountPriceDto;
 import com.mikolaj.promocodes.domain.entity.Product;
 import com.mikolaj.promocodes.domain.entity.PromoCode;
 import org.springframework.http.HttpStatus;

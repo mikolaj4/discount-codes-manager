@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-public class ReturnPromoCodeDto {
+public class ResponsePromoCodeDto {
     private String name;
     private Double discountAmount;
     private String currency;

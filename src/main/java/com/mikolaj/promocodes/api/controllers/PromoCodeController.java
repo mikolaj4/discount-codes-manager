@@ -1,9 +1,7 @@
 package com.mikolaj.promocodes.api.controllers;
 
-import com.mikolaj.promocodes.api.exceptions.PromoCodeAlreadyExistsException;
-import com.mikolaj.promocodes.api.exceptions.PromoCodeNotFoundException;
 import com.mikolaj.promocodes.application.dtos.promo_code_dtos.CreatePromoCodeDto;
-import com.mikolaj.promocodes.application.dtos.promo_code_dtos.ReturnPromoCodeDto;
+import com.mikolaj.promocodes.application.dtos.promo_code_dtos.ResponsePromoCodeDto;
 import com.mikolaj.promocodes.application.services.PromoCodeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +20,20 @@ public class PromoCodeController {
     public PromoCodeController(PromoCodeService thePromoCodeService){promoCodeService = thePromoCodeService;}
 
     @GetMapping("/codes")
-    public ResponseEntity<List<ReturnPromoCodeDto>>  findAll(){
-        List<ReturnPromoCodeDto> allPromoCodesDtos = promoCodeService.findAll();
+    public ResponseEntity<List<ResponsePromoCodeDto>>  findAll(){
+        List<ResponsePromoCodeDto> allPromoCodesDtos = promoCodeService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(allPromoCodesDtos);
     }
 
     @GetMapping("/codes/{codeName}")
-    public ResponseEntity<ReturnPromoCodeDto> getPromoCode(@PathVariable String codeName){
-        ReturnPromoCodeDto dbPromoCode = promoCodeService.findByName(codeName);
+    public ResponseEntity<ResponsePromoCodeDto> getPromoCode(@PathVariable String codeName){
+        ResponsePromoCodeDto dbPromoCode = promoCodeService.findByName(codeName);
         return ResponseEntity.status(HttpStatus.OK).body(dbPromoCode);
     }
 
     @PostMapping("/codes")
-    public ResponseEntity<ReturnPromoCodeDto> addPromoCode(@Valid @RequestBody CreatePromoCodeDto createPromoCodeDto){
-        ReturnPromoCodeDto dbPromoCode = promoCodeService.save(createPromoCodeDto);
+    public ResponseEntity<ResponsePromoCodeDto> addPromoCode(@Valid @RequestBody CreatePromoCodeDto createPromoCodeDto){
+        ResponsePromoCodeDto dbPromoCode = promoCodeService.save(createPromoCodeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(dbPromoCode);
     }
 }

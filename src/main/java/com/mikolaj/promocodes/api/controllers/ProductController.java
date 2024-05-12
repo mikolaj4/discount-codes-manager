@@ -1,9 +1,8 @@
 package com.mikolaj.promocodes.api.controllers;
 
 import com.mikolaj.promocodes.application.dtos.product_dtos.CreateProductDto;
-import com.mikolaj.promocodes.application.dtos.product_dtos.ReturnProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.ResponseProductDto;
 import com.mikolaj.promocodes.application.dtos.product_dtos.UpdateProductDto;
-import com.mikolaj.promocodes.domain.entity.Product;
 import com.mikolaj.promocodes.application.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +23,20 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<ReturnProductDto>> findAll(){
-        List<ReturnProductDto> allProductsDtos = productService.findAll();
+    public ResponseEntity<List<ResponseProductDto>> findAll(){
+        List<ResponseProductDto> allProductsDtos = productService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(allProductsDtos);
     }
 
     @PostMapping("/products")
-    public ResponseEntity<ReturnProductDto> addProduct(@Valid @RequestBody CreateProductDto createProductDto){
-        ReturnProductDto dbProductDto = productService.save(createProductDto);
+    public ResponseEntity<ResponseProductDto> addProduct(@Valid @RequestBody CreateProductDto createProductDto){
+        ResponseProductDto dbProductDto = productService.save(createProductDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(dbProductDto);
     }
 
     @PutMapping("/products")
-    public ResponseEntity<ReturnProductDto> updateProduct(@Valid @RequestBody UpdateProductDto updateProductDto){
-        ReturnProductDto dbProductDto = productService.update(updateProductDto);
+    public ResponseEntity<ResponseProductDto> updateProduct(@Valid @RequestBody UpdateProductDto updateProductDto){
+        ResponseProductDto dbProductDto = productService.update(updateProductDto);
         return ResponseEntity.status(HttpStatus.OK).body(dbProductDto);
     }
 

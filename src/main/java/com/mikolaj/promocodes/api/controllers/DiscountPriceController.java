@@ -1,7 +1,7 @@
 package com.mikolaj.promocodes.api.controllers;
 
 import com.mikolaj.promocodes.application.dtos.discount_dtos.DiscountPriceDto;
-import com.mikolaj.promocodes.application.dtos.discount_dtos.ReturnDiscountPriceDto;
+import com.mikolaj.promocodes.application.dtos.discount_dtos.ResponseDiscountPriceDto;
 import com.mikolaj.promocodes.application.services.DiscountPriceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,12 @@ public class DiscountPriceController {
     private DiscountPriceService discountPriceService;
 
     @Autowired
-    public DiscountPriceController(DiscountPriceService discountPriceService) {
-        this.discountPriceService = discountPriceService;
-    }
+    public DiscountPriceController(DiscountPriceService discountPriceService) { this.discountPriceService = discountPriceService; }
 
     @PostMapping("/discount-price")
-    ResponseEntity<ReturnDiscountPriceDto> getDiscountPrice(@Valid @RequestBody DiscountPriceDto discountPriceDto){
-        ReturnDiscountPriceDto returnDiscountPriceDto = discountPriceService.calculateDiscountPrice(discountPriceDto);
+    ResponseEntity<ResponseDiscountPriceDto> getDiscountPrice(@Valid @RequestBody DiscountPriceDto discountPriceDto){
+        ResponseDiscountPriceDto responseDiscountPriceDto = discountPriceService.calculateDiscountPrice(discountPriceDto);
 
-        return ResponseEntity.status(returnDiscountPriceDto.getHttpStatus()).body(returnDiscountPriceDto);
+        return ResponseEntity.status(responseDiscountPriceDto.getHttpStatus()).body(responseDiscountPriceDto);
     }
 }

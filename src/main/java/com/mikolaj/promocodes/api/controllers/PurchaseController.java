@@ -1,8 +1,8 @@
 package com.mikolaj.promocodes.api.controllers;
 
 import com.mikolaj.promocodes.application.dtos.purchase_dtos.CreatePurchaseDto;
-import com.mikolaj.promocodes.application.dtos.purchase_dtos.ReturnCorrectPurchaseDto;
-import com.mikolaj.promocodes.application.dtos.purchase_dtos.ReturnWarningPurchaseDto;
+import com.mikolaj.promocodes.application.dtos.purchase_dtos.ResponseCorrectPurchaseDto;
+import com.mikolaj.promocodes.application.dtos.purchase_dtos.ResponseWarningPurchaseDto;
 import com.mikolaj.promocodes.application.services.PurchaseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,11 @@ public class PurchaseController {
     ResponseEntity<?> simulatePurchase(@Valid @RequestBody CreatePurchaseDto createPurchaseDto){
         Object purchaseResult = purchaseService.simulatePurchase(createPurchaseDto);
 
-        if (purchaseResult instanceof ReturnCorrectPurchaseDto returnCorrectPurchaseDto)
+        if (purchaseResult instanceof ResponseCorrectPurchaseDto responseCorrectPurchaseDto)
         {
-            return ResponseEntity.status(returnCorrectPurchaseDto.getHttpStatus()).body(returnCorrectPurchaseDto);
+            return ResponseEntity.status(responseCorrectPurchaseDto.getHttpStatus()).body(responseCorrectPurchaseDto);
         }
-        else if (purchaseResult instanceof ReturnWarningPurchaseDto warningDto)
+        else if (purchaseResult instanceof ResponseWarningPurchaseDto warningDto)
         {
             return ResponseEntity.status(warningDto.getHttpStatus()).body(warningDto);
         }

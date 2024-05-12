@@ -2,10 +2,8 @@ package com.mikolaj.promocodes.application.services;
 
 import com.mikolaj.promocodes.application.dtos.discount_details_dtos.DiscountDetailsDto;
 import com.mikolaj.promocodes.application.dtos.purchase_dtos.CreatePurchaseDto;
-import com.mikolaj.promocodes.application.dtos.purchase_dtos.ReturnCorrectPurchaseDto;
-import com.mikolaj.promocodes.application.dtos.purchase_dtos.ReturnWarningPurchaseDto;
-import com.mikolaj.promocodes.domain.entity.Product;
-import com.mikolaj.promocodes.domain.entity.PromoCode;
+import com.mikolaj.promocodes.application.dtos.purchase_dtos.ResponseCorrectPurchaseDto;
+import com.mikolaj.promocodes.application.dtos.purchase_dtos.ResponseWarningPurchaseDto;
 import com.mikolaj.promocodes.domain.entity.Purchase;
 import com.mikolaj.promocodes.domain.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +48,7 @@ public class PurchaseServiceImpl implements PurchaseService{
             );
             Purchase savedPurchase = savePurchase(purchaseToSave);
 
-            return new ReturnCorrectPurchaseDto(
+            return new ResponseCorrectPurchaseDto(
                     savedPurchase.getId(),
                     savedPurchase.getRegularPrice(),
                     savedPurchase.getAmountDiscount(),
@@ -62,7 +60,7 @@ public class PurchaseServiceImpl implements PurchaseService{
         }
         //case - rules for applying discount not met - returning regular price with appropriate warning message
         else {
-            return new ReturnWarningPurchaseDto(
+            return new ResponseWarningPurchaseDto(
                     discountDetailsDto.getUpdatedPrice(),
                     discountDetailsDto.getCurrency(),
                     discountDetailsDto.getMessage(),

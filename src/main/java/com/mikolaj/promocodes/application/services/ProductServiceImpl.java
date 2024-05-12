@@ -1,12 +1,11 @@
 package com.mikolaj.promocodes.application.services;
 
 import com.mikolaj.promocodes.application.dtos.product_dtos.CreateProductDto;
-import com.mikolaj.promocodes.application.dtos.product_dtos.ReturnProductDto;
+import com.mikolaj.promocodes.application.dtos.product_dtos.ResponseProductDto;
 import com.mikolaj.promocodes.application.dtos.product_dtos.UpdateProductDto;
 import com.mikolaj.promocodes.domain.entity.Product;
 import com.mikolaj.promocodes.api.exceptions.ProductNotFoundException;
 import com.mikolaj.promocodes.domain.repository.ProductRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ReturnProductDto> findAll() {
+    public List<ResponseProductDto> findAll() {
         List<Product> products = productRepository.findAll();
         return products.stream()
-                .map(product -> modelMapper.map(product, ReturnProductDto.class))
+                .map(product -> modelMapper.map(product, ResponseProductDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -47,15 +46,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ReturnProductDto save(CreateProductDto createProductDto){
+    public ResponseProductDto save(CreateProductDto createProductDto){
         Product product = modelMapper.map(createProductDto, Product.class);
         product.setId(0);   // set id=0 to create new product with auto generated id
         Product savedProduct = productRepository.save(product);
-        return modelMapper.map(savedProduct, ReturnProductDto.class);
+        return modelMapper.map(savedProduct, ResponseProductDto.class);
     }
 
     @Override
-    public ReturnProductDto update(UpdateProductDto updateProductDto) {
+    public ResponseProductDto update(UpdateProductDto updateProductDto) {
         int productIdFromDto = updateProductDto.getId();
         Optional<Product> optionalProduct = productRepository.findById(productIdFromDto);
 
@@ -63,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
             Product existingProduct = optionalProduct.get();
             modelMapper.map(updateProductDto, existingProduct);
             Product updatedProduct = productRepository.save(existingProduct);
-            return modelMapper.map(updatedProduct, ReturnProductDto.class);
+            return modelMapper.map(updatedProduct, ResponseProductDto.class);
         }else {
             throw new ProductNotFoundException("Product with ID " + productIdFromDto + " not found");
         }

@@ -15,13 +15,17 @@ public class CreatePromoCodeDto {
     private String name;
 
     @NotNull(message = "discount amount is mandatory")
+    @Min(value = 1, message = "must be >= 1")
+    @Max(value = 9999999, message = "must be <= 9 999 999")
     private Double discountAmount;
 
-    @NotEmpty(message = "code currency is mandatory")
+
+    @Pattern(regexp= "^(PLN|EUR|USD|GBP|CAD)$",
+            message = "supported currencies: PLN|EUR|USD|GBP|CAD")
     private String currency;
 
     @Min(value = 1, message = "must be >= 1")
-    @Max(value = 9999999, message = "must be <= 9999999")
+    @Max(value = 9999999, message = "must be <= 9 999 999")
     @NotNull(message = "max usages is mandatory")
     private Integer maxUsages;
 

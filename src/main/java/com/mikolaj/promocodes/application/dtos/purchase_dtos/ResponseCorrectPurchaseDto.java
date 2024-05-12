@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ReturnCorrectPurchaseDto {
+public class ResponseCorrectPurchaseDto {
     private Integer id;
     private Double regularPrice;
     private Double amountDiscount;

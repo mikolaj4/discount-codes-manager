@@ -13,9 +13,7 @@ public class SalesReportController {
     private PurchaseRepository purchaseRepository;
 
     @Autowired
-    public SalesReportController(PurchaseRepository purchaseRepository) {
-        this.purchaseRepository = purchaseRepository;
-    }
+    public SalesReportController(PurchaseRepository purchaseRepository) { this.purchaseRepository = purchaseRepository; }
 
     @GetMapping("/sales-report")
     public String displaySalesReport(Model model){

@@ -1,11 +1,11 @@
 package com.mikolaj.promocodes.application.dtos.product_dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Getter
 @Setter
-public class ReturnProductDto {
+public class ResponseProductDto {
     private Integer id;
     private String name;
     private String description;
