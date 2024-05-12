@@ -1,6 +1,5 @@
 package com.mikolaj.promocodes.application.dtos.product_dtos;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter

@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 @Service
 public class PromoCodeServiceImpl implements PromoCodeService{
 
-    private PromoCodeRepository promoCodeRepository;
-    private ModelMapper modelMapper;
+    private final PromoCodeRepository promoCodeRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public PromoCodeServiceImpl(PromoCodeRepository promoCodeRepository, ModelMapper modelMapper) {

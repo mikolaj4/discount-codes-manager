@@ -10,8 +10,8 @@ import java.time.LocalDate;
 
 @Service
 public class PriceCalculationServiceImpl implements PriceCalculationService{
-    private ProductService productService;
-    private PromoCodeService promoCodeService;
+    private final ProductService productService;
+    private final PromoCodeService promoCodeService;
 
     public PriceCalculationServiceImpl(ProductService productService, PromoCodeService promoCodeService) {
         this.productService = productService;

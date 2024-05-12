@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class PurchaseController {
-    private PurchaseService purchaseService;
+    private final PurchaseService purchaseService;
 
     @Autowired
     public PurchaseController(PurchaseService purchaseService) {

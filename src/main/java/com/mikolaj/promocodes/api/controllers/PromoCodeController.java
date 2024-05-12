@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class PromoCodeController {
-    private PromoCodeService promoCodeService;
+    private final PromoCodeService promoCodeService;
 
     @Autowired
     public PromoCodeController(PromoCodeService thePromoCodeService){promoCodeService = thePromoCodeService;}

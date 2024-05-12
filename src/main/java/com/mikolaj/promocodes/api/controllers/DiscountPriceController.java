@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class DiscountPriceController {
 
-    private DiscountPriceService discountPriceService;
+    private final DiscountPriceService discountPriceService;
 
     @Autowired
     public DiscountPriceController(DiscountPriceService discountPriceService) { this.discountPriceService = discountPriceService; }

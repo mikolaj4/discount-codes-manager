@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DiscountPriceServiceImpl implements DiscountPriceService{
-    private PriceCalculationService priceCalculationService;
+    private final PriceCalculationService priceCalculationService;
 
     @Autowired
     public DiscountPriceServiceImpl(PriceCalculationService priceCalculationService) {

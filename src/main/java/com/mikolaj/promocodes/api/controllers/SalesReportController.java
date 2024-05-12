@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/api")
 public class SalesReportController {
-    private PurchaseRepository purchaseRepository;
+    private final PurchaseRepository purchaseRepository;
 
     @Autowired
     public SalesReportController(PurchaseRepository purchaseRepository) { this.purchaseRepository = purchaseRepository; }

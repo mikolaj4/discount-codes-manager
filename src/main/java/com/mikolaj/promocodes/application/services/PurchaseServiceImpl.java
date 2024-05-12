@@ -14,9 +14,9 @@ import java.time.LocalDate;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService{
-    private PriceCalculationService priceCalculationService;
-    private PromoCodeService promoCodeService;
-    private PurchaseRepository purchaseRepository;
+    private final PriceCalculationService priceCalculationService;
+    private final PromoCodeService promoCodeService;
+    private final PurchaseRepository purchaseRepository;
 
 
     @Autowired
